@@ -1,11 +1,10 @@
 ---
-// filepath: /d:/Dev/portfolio/src/components/Header.astro
 import DarkModeToggle from '../utils/DarkModeToggle';
 
 const navItems = [
   { name: 'Proyectos', path: '/projects' },
-  { name: 'Skills', path: '#skills' },
-  { name: 'Contacto', path: '#contact', isButton: true },
+  { name: 'Skills', path: '/skills' },
+  // { name: 'Contacto', path: '#contact', isButton: true },
 ];
 
 const currentPath = Astro.url.pathname;
