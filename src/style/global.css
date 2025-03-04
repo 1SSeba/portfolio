@@ -1,0 +1,316 @@
+/* Base Styles & Reset */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 antialiased;
+    font-feature-settings: "salt", "ss01", "cv01", "cv02";
+  }
+
+  ::selection {
+    @apply bg-primary-200 dark:bg-primary-900;
+  }
+
+  /* Typography */
+  h1 {
+    @apply text-4xl font-bold md:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl font-bold;
+  }
+
+  h3 {
+    @apply text-2xl font-bold;
+  }
+
+  h4 {
+    @apply text-xl font-bold;
+  }
+
+  p {
+    @apply text-neutral-700 dark:text-neutral-300;
+  }
+}
+
+@layer components {
+  /* ===== Layout Components ===== */
+  .card {
+    @apply bg-white dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700/50 rounded-xl shadow-md hover:shadow-lg transition-all duration-300;
+  }
+
+  .card-highlight {
+    @apply bg-white dark:bg-neutral-800/70 border border-neutral-200/70 dark:border-neutral-700/50 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 5px 15px -10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-gradient {
+    @apply border-transparent bg-gradient-to-br from-primary-500/10 via-white to-secondary-500/10 dark:from-primary-900/20 dark:via-neutral-800 dark:to-secondary-900/20 backdrop-blur-md;
+  }
+  
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  /* ===== Text Effects ===== */
+  .text-gradient {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-400 dark:to-secondary-400;
+  }
+
+  /* ===== Button System ===== */
+  /* Basic button styles */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-300 relative overflow-hidden;
+  }
+
+  /* Primary Button */
+  .button-primary {
+    @apply btn px-5 py-2.5 bg-primary-600 text-white shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-neutral-900;
+    background-image: linear-gradient(135deg, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 100%);
+    --tw-gradient-from: #4f46e5;
+    --tw-gradient-to: #6366f1;
+    transform: translateY(0);
+    transition: transform 0.2s cubic-bezier(0.3, 0.7, 0.4, 1.5), 
+                shadow 0.2s ease, 
+                background-position 0.5s ease-out;
+  }
+
+  .button-primary:hover {
+    --tw-gradient-from: #4338ca;
+    --tw-gradient-to: #4f46e5;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px -4px rgba(99, 102, 241, 0.5);
+  }
+
+  .button-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px -3px rgba(99, 102, 241, 0.4);
+  }
+
+  /* Secondary Button */
+  .button-secondary {
+    @apply btn px-5 py-2.5 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:focus:ring-neutral-600 focus:ring-offset-2 dark:focus:ring-offset-neutral-900 shadow-sm;
+    transform: translateY(0);
+    transition: transform 0.2s cubic-bezier(0.3, 0.7, 0.4, 1.5), 
+                shadow 0.2s ease;
+  }
+
+  .button-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px -2px rgba(0, 0, 0, 0.1);
+  }
+
+  .button-secondary:active {
+    transform: translateY(0);
+  }
+
+  /* Button Sizes */
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3 text-lg;
+  }
+
+  /* Icon Button */
+  .btn-icon {
+    @apply p-2.5 rounded-full flex items-center justify-center;
+    transition: transform 0.15s cubic-bezier(0.3, 0.7, 0.4, 1.5), 
+                background-color 0.2s ease;
+  }
+
+  .btn-icon:hover {
+    transform: scale(1.1);
+  }
+
+  .btn-icon:active {
+    transform: scale(1);
+  }
+
+  /* Ghost Button */
+  .btn-ghost {
+    @apply btn bg-transparent border border-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-300;
+  }
+
+  /* Subtle Button */
+  .btn-subtle {
+    @apply bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800/50 text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400;
+  }
+
+  /* Link Button */
+  .btn-link {
+    @apply bg-transparent text-primary-600 dark:text-primary-400 hover:underline hover:text-primary-700 dark:hover:text-primary-300 p-0;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  /* Animated dots for buttons in loading state */
+  .loading-dots {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .loading-dots span {
+    @apply bg-current;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    animation: loadingDots 1.4s infinite both;
+  }
+
+  .loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  /* ===== Navigation ===== */
+  .nav-btn {
+    @apply rounded-lg p-2.5 transition-all duration-300 flex items-center gap-2 font-medium;
+  }
+
+  .nav-btn-active {
+    @apply bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400;
+  }
+
+  .nav-btn-default {
+    @apply text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800;
+  }
+
+  /* ===== Form Elements ===== */
+  .input {
+    @apply px-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm;
+  }
+
+  .select {
+    @apply px-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm appearance-none pr-10;
+  }
+
+  .checkbox {
+    @apply rounded border-neutral-300 dark:border-neutral-700 text-primary-600 dark:text-primary-500 shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+  }
+
+  /* ===== Tags ===== */
+  .tag {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium transition-all duration-200 ease-in-out border border-transparent dark:border-neutral-700/30;
+  }
+
+  .tag-primary {
+    @apply bg-primary-100 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300;
+  }
+
+  .tag-secondary {
+    @apply bg-secondary-100 text-secondary-800 dark:bg-secondary-900/30 dark:text-secondary-300;
+  }
+
+  .tag-accent {
+    @apply bg-accent-100 text-accent-800 dark:bg-accent-900/30 dark:text-accent-300;
+  }
+
+  .tag-neutral {
+    @apply bg-neutral-100 text-neutral-800 dark:bg-neutral-800/60 dark:text-neutral-300;
+  }
+
+  /* ===== Social Buttons ===== */
+  .social-btn {
+    @apply flex items-center justify-between p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-sm transition-all duration-300;
+    transform: translateY(0) translateX(0);
+  }
+
+  .social-btn:hover {
+    @apply border-primary-300 dark:border-primary-700 shadow-md;
+    transform: translateY(-2px) translateX(5px);
+  }
+
+  .social-btn:active {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+@layer utilities {
+  /* ===== Custom Scrollbars ===== */
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+  
+  .scrollbar-thumb-neutral-300::-webkit-scrollbar-thumb {
+    background-color: rgb(212, 212, 212);
+    border-radius: 9999px;
+  }
+  
+  .dark .scrollbar-thumb-neutral-700::-webkit-scrollbar-thumb {
+    background-color: rgb(64, 64, 64);
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* ===== Glass Effect ===== */
+  .glass {
+    @apply backdrop-blur-md bg-white/80 dark:bg-neutral-900/80 border border-neutral-200/50 dark:border-neutral-700/50;
+  }
+
+  /* ===== Animations ===== */
+  @keyframes loadingDots {
+    0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(10px); }
+    to { transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(99, 102, 241, 0.2); }
+    100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.6); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  /* ===== Project Slider ===== */
+  .project-slider {
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .project-slider > div > div {
+    scroll-snap-align: center;
+  }
+  
+  /* Dot indicator for slider */
+  .dot-indicator.active span {
+    @apply bg-primary-500 dark:bg-primary-400 w-4 scale-110;
+  }
+}

@@ -1,20 +1,388 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import IconSet from '../components/IconSet';
+import Container from '../components/Container';
+import { ProjectCard } from '../components/ProjectCard';
+import { projects } from '../data/projects';
+
+// Filter featured projects
+const featuredProjects = projects.filter(project => project.featured);
+
+const stats = [
+  { label: "Proyectos", value: "15+" },
+  { label: "Experiencia", value: "3+ años" },
+  { label: "Clientes", value: "10+" }
+];
+
+const skills = [
+  { name: "React", icon: "react" },
+  { name: "Node.js", icon: "node" },
+  { name: "JavaScript", icon: "javascript" },
+  { name: "Python", icon: "python" },
+  { name: "Frontend", icon: "code" },
+  { name: "Full Stack", icon: "laptop" },
+  { name: "Web Dev", icon: "globe" },
+  { name: "AI Integration", icon: "brain" }
+];
 ---
 
-<Layout title="Mi Portfolio - Inicio">
-  <Header client:load />
-  <main class="container mx-auto px-4 py-24">
-    <section class="text-center">
-      <h1 class="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-        ¡Hola! Soy SSeba
-      </h1>
-      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        Desarrollador web full-stack apasionado por crear experiencias digitales excepcionales.
-      </p>
+<Layout title="SSeba - Developer">
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-white to-neutral-50 dark:from-neutral-900 dark:to-neutral-950/80 pt-20 pb-16">
+    <!-- Decorative Elements -->
+    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500"></div>
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute -top-[40%] -right-[10%] w-[60%] h-[100%] bg-primary-100/30 dark:bg-primary-900/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-[30%] -left-[10%] w-[50%] h-[80%] bg-secondary-100/30 dark:bg-secondary-900/10 rounded-full blur-3xl"></div>
+    </div>
+    
+    <Container>
+      <div class="relative z-10 flex flex-col items-center text-center">
+        <span class="inline-block px-3 py-1 mb-5 text-sm font-medium rounded-full bg-primary-100 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300">
+          Desarrollador Full Stack
+        </span>
+        <h1 class="text-5xl font-extrabold mb-6 text-gradient max-w-3xl">
+          Creando experiencias digitales excepcionales
+        </h1>
+        <p class="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed mb-8">
+          Especializado en desarrollo web moderno y soluciones tecnológicas innovadoras que transforman ideas en productos funcionales y elegantes.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="#contact" class="button-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            Contáctame
+          </a>
+          <a href="/projects" class="button-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            Ver Proyectos
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- About & Skills Section -->
+  <section class="py-16 bg-neutral-50 dark:bg-neutral-950/50">
+    <Container>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- About Card -->
+        <div class="col-span-1 md:col-span-2 card group">
+          <div class="p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
+              Sobre mí
+            </h2>
+            <p class="text-neutral-600 dark:text-neutral-400 mb-5 text-pretty">
+              Soy un desarrollador apasionado por crear soluciones tecnológicas que resuelvan problemas reales. Me especializo en desarrollo web full stack con un enfoque en tecnologías modernas como React, Node.js y bases de datos NoSQL.
+            </p>
+            <div class="flex flex-wrap gap-2 items-center">
+              <a href="/about" class="inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-lg border border-neutral-200 dark:border-neutral-700 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors">
+                Saber más
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+              <a href="/cv.pdf" class="inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                Descargar CV
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Card -->
+        <div class="card overflow-hidden group">
+          <div class="relative w-full h-full p-6">
+            <h3 class="text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-4 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
+              Estadísticas
+            </h3>
+            <ul class="space-y-4">
+              {stats.map((stat) => (
+                <li class="flex justify-between items-center">
+                  <span class="text-neutral-600 dark:text-neutral-400">{stat.label}</span>
+                  <span class="text-3xl font-bold text-neutral-900 dark:text-neutral-50">{stat.value}</span>
+                </li>
+              ))}
+            </ul>
+            <div class="absolute bottom-0 right-0 w-24 h-24 bg-primary-100/50 dark:bg-primary-900/30 rounded-tl-[100px] -mr-6 -mb-6 z-0"></div>
+          </div>
+        </div>
+
+        <!-- Skills Card -->
+        <div class="col-span-1 md:col-span-2 card group">
+          <div class="p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-50 mb-4 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
+              Stack Tecnológico
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {skills.map((skill) => (
+                <div class="flex flex-col items-center justify-center p-4 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-700 hover:shadow-md transition-all">
+                  <IconSet 
+                    name={skill.icon} 
+                    label="" 
+                    className="!p-0 !w-10 !h-10 mb-2 text-primary-600 dark:text-primary-400" 
+                    client:load 
+                  />
+                  <span class="text-sm font-medium text-neutral-800 dark:text-neutral-200">
+                    {skill.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="card group">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-neutral-900 dark:text-neutral-50 mb-4 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
+              Conectemos
+            </h3>
+            <div class="space-y-3">
+              <a href="https://github.com/yourusername" target="_blank" rel="noopener"
+                 class="flex items-center justify-between p-3 rounded-lg hover:translate-x-2 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-all">
+                <span class="text-neutral-800 dark:text-neutral-200 font-medium">GitHub</span>
+                <IconSet name="github" label="" className="!p-0 !w-5 !h-5 text-neutral-700 dark:text-neutral-300" client:load />
+              </a>
+              <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener"
+                 class="flex items-center justify-between p-3 rounded-lg hover:translate-x-2 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-all">
+                <span class="text-neutral-800 dark:text-neutral-200 font-medium">LinkedIn</span>
+                <IconSet name="linkedin" label="" className="!p-0 !w-5 !h-5 text-neutral-700 dark:text-neutral-300" client:load />
+              </a>
+              <a href="https://twitter.com/yourusername" target="_blank" rel="noopener"
+                 class="flex items-center justify-between p-3 rounded-lg hover:translate-x-2 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-all">
+                <span class="text-neutral-800 dark:text-neutral-200 font-medium">Twitter</span>
+                <IconSet name="twitter" label="" className="!p-0 !w-5 !h-5 text-neutral-700 dark:text-neutral-300" client:load />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+  
+  <!-- Featured Projects Section -->
+  {featuredProjects.length > 0 && (
+    <section class="py-16 bg-white dark:bg-neutral-900">
+      <Container>
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+          <div>
+            <p class="inline-block text-sm font-medium px-3 py-1 rounded-full bg-primary-100 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300 mb-3">
+              Portfolio
+            </p>
+            <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50 mb-2">
+              Proyectos Destacados
+            </h2>
+            <p class="text-neutral-600 dark:text-neutral-400 max-w-2xl">
+              Una selección de mis mejores trabajos y proyectos recientes.
+            </p>
+          </div>
+          
+          <div class="flex gap-2">
+            <button id="prev-slide" aria-label="Proyecto anterior" class="p-2 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-primary-50 dark:hover:bg-primary-900/20">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button id="next-slide" aria-label="Proyecto siguiente" class="p-2 rounded-full bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:bg-primary-50 dark:hover:bg-primary-900/20">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Project slider container -->
+        <div class="relative overflow-hidden">
+          <div id="slider-container" class="project-slider overflow-hidden">
+            <div id="slider-track" class="flex gap-6 transition-transform duration-500">
+              {featuredProjects.map((project) => (
+                <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-[350px] lg:min-w-[320px] flex-shrink-0">
+                  <ProjectCard project={project} client:load />
+                </div>
+              ))}
+            </div>
+          </div>
+  
+          <!-- Dots navigation -->
+          <div class="flex justify-center gap-2 mt-6">
+            {featuredProjects.map((_, index) => (
+              <button 
+                class="w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600 hover:bg-primary-400 dark:hover:bg-primary-500 transition-colors dot-indicator" 
+                data-index={index}
+                aria-label={`Go to slide ${index + 1}`}
+              ></button>
+            ))}
+          </div>
+        </div>
+        
+        <div class="flex justify-center mt-8">
+          <a href="/projects" class="button-secondary">
+            Ver todos los proyectos
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </Container>
     </section>
-  </main>
-  <Footer />
+  )}
+  
+
+  
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 relative overflow-hidden bg-white dark:bg-neutral-900">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute bottom-0 right-0 w-[30%] h-[80%] bg-primary-50/30 dark:bg-primary-900/10 rounded-full blur-3xl"></div>
+      <div class="absolute top-0 left-0 w-[30%] h-[50%] bg-secondary-50/20 dark:bg-secondary-900/10 rounded-full blur-3xl"></div>
+    </div>
+    
+    <Container>
+      <div class="card-highlight relative z-10 max-w-3xl mx-auto p-8 sm:p-12 text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-neutral-900 dark:text-neutral-50">
+          ¿Interesado en colaborar?
+        </h2>
+        <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-8 max-w-xl mx-auto">
+          Estoy disponible para proyectos freelance y oportunidades full-time. Conversemos sobre cómo puedo ayudarte a alcanzar tus objetivos.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a 
+            href="mailto:contact@sseba.dev" 
+            class="button-primary"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Enviar Correo
+          </a>
+          <a 
+            href="https://calendly.com/yourusername" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="button-secondary"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Agendar Reunión
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
 </Layout>
+
+<style>
+  .project-slider {
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .project-slider > div > div {
+    scroll-snap-align: center;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sliderTrack = document.getElementById('slider-track');
+    const sliderContainer = document.getElementById('slider-container');
+    const prevButton = document.getElementById('prev-slide');
+    const nextButton = document.getElementById('next-slide');
+    const dots = document.querySelectorAll('.dot-indicator');
+    
+    if (!sliderTrack || !sliderContainer || !prevButton || !nextButton) return;
+    
+    // Get all slides
+    const slides = sliderTrack.children;
+    const slideCount = slides.length;
+    if (slideCount === 0) return;
+    
+    // Set initial active state
+    let activeSlide = 0;
+    updateActiveDot();
+    
+    // Calculate slide width dynamically
+    function getSlideWidth() {
+      if (slides[0]) {
+        return slides[0].getBoundingClientRect().width + 
+               parseInt(window.getComputedStyle(slides[0]).marginRight) + 
+               parseInt(window.getComputedStyle(slides[0]).marginLeft);
+      }
+      return 320; // Fallback width
+    }
+    
+    // Handle navigation
+    function goToSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= slideCount) index = slideCount - 1;
+      
+      activeSlide = index;
+      const slideWidth = getSlideWidth();
+      const offset = -index * slideWidth;
+      
+      sliderTrack.style.transform = `translateX(${offset}px)`;
+      updateActiveDot();
+    }
+    
+    function updateActiveDot() {
+      dots.forEach((dot, index) => {
+        if (index === activeSlide) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+    
+    // Event listeners
+    prevButton.addEventListener('click', () => {
+      goToSlide(activeSlide - 1);
+    });
+    
+    nextButton.addEventListener('click', () => {
+      goToSlide(activeSlide + 1);
+    });
+    
+    // Click on dots
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        goToSlide(index);
+      });
+    });
+    
+    // Auto-rotation
+    let interval;
+    
+    function startAutoRotation() {
+      stopAutoRotation();
+      interval = setInterval(() => {
+        let nextIndex = activeSlide + 1;
+        if (nextIndex >= slideCount) nextIndex = 0;
+        goToSlide(nextIndex);
+      }, 4000);
+    }
+    
+    function stopAutoRotation() {
+      if (interval) clearInterval(interval);
+    }
+    
+    // Start autoplay and handle interactions
+    startAutoRotation();
+    
+    sliderContainer.addEventListener('mouseenter', stopAutoRotation);
+    sliderContainer.addEventListener('mouseleave', startAutoRotation);
+    sliderContainer.addEventListener('touchstart', stopAutoRotation, { passive: true });
+    sliderContainer.addEventListener('touchend', () => {
+      setTimeout(startAutoRotation, 3000);
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      goToSlide(activeSlide);
+    });
+    
+    // Mark first dot as active
+    if (dots.length > 0) {
+      dots[0].classList.add('active');
+    }
+  });
+</script>

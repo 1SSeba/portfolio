@@ -1,0 +1,172 @@
+---
+// filepath: /d:/Dev/portfolio/src/components/Header.astro
+import DarkModeToggle from '../utils/DarkModeToggle';
+
+const navItems = [
+  { name: 'Proyectos', path: '/projects' },
+  { name: 'Skills', path: '#skills' },
+  { name: 'Contacto', path: '#contact', isButton: true },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300" id="main-header">
+  <div class="absolute inset-0 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border-b border-neutral-200/50 dark:border-neutral-700/50"></div>
+  
+  <div class="container mx-auto px-4 relative z-10">
+    <nav class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="group flex items-center gap-2">
+        <div class="relative w-9 h-9 flex items-center justify-center bg-gradient-to-br from-primary-500 to-secondary-500 rounded-lg overflow-hidden shadow-md group-hover:shadow-primary-500/25 dark:group-hover:shadow-primary-400/20 transition-all duration-300">
+          <span class="text-lg font-extrabold text-white group-hover:scale-110 transition-transform duration-300">S</span>
+          <div class="absolute inset-0 bg-white/10 group-hover:bg-transparent transition-colors duration-300"></div>
+        </div>
+        <span class="text-xl font-bold text-neutral-800 dark:text-neutral-50 group-hover:text-gradient transition-colors">
+          SSeba<span class="text-primary-600 dark:text-primary-400">Dev</span>
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-6">
+        {navItems.map(item => 
+          item.isButton ? (
+            <a 
+              href={item.path} 
+              class="button-primary text-sm font-medium"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              {item.name}
+            </a>
+          ) : (
+            <a 
+              href={item.path} 
+              class={`px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 ${
+                currentPath === item.path 
+                  ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20' 
+                  : 'text-neutral-700 dark:text-neutral-300'
+              }`}
+            >
+              {item.name}
+            </a>
+          )
+        )}
+        
+        <div class="h-6 w-px bg-neutral-200 dark:bg-neutral-700 mx-1"></div>
+        
+        <DarkModeToggle client:load />
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="md:hidden flex items-center gap-4">
+        <DarkModeToggle client:load />
+        <button 
+          id="menuButton"
+          class="p-2 text-neutral-600 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+          aria-label="Menu"
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor" 
+            class="w-6 h-6"
+          >
+            <path 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2" 
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Panel -->
+    <div id="mobileMenu" class="hidden md:hidden overflow-hidden">
+      <div class="py-4 space-y-2 border-t border-neutral-200 dark:border-neutral-700 animate-fade-in">
+        {navItems.map(item => 
+          item.isButton ? (
+            <a 
+              href={item.path} 
+              class="flex items-center gap-2 px-4 py-3 rounded-lg bg-primary-600 dark:bg-primary-500 text-white font-medium transition-colors hover:bg-primary-700 dark:hover:bg-primary-600"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              {item.name}
+            </a>
+          ) : (
+            <a 
+              href={item.path} 
+              class={`block px-4 py-3 rounded-lg font-medium ${
+                currentPath === item.path 
+                  ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' 
+                  : 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+              }`}
+            >
+              {item.name}
+            </a>
+          )
+        )}
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  #main-header {
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+  }
+  
+  .dark #main-header {
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Add scroll-based styling */
+  :global(body.scrolled) #main-header {
+    @apply bg-white/90 dark:bg-neutral-900/90;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark :global(body.scrolled) #main-header {
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25);
+  }
+</style>
+
+<script>
+  // Mobile menu toggle
+  const menuButton = document.getElementById('menuButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  menuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+  
+  // Close menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (mobileMenu && menuButton && !menuButton.contains(event.target as Node) && 
+        !mobileMenu.contains(event.target as Node) && 
+        !mobileMenu.classList.contains('hidden')) {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+  
+  // Header scroll effect
+  const header = document.getElementById('main-header');
+  const scrollThreshold = 60;
+  
+  function handleScroll() {
+    if (window.scrollY > scrollThreshold) {
+      document.body.classList.add('scrolled');
+    } else {
+      document.body.classList.remove('scrolled');
+    }
+  }
+  
+  window.addEventListener('scroll', handleScroll);
+  handleScroll(); // Initialize on page load
+</script>
